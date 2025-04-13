@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Snuggle</title>
+
+  <!-- Meta tags para preview no WhatsApp e redes sociais -->
   <meta property="og:title" content="Snuggle" />
   <meta property="og:description" content="🎉 Clique para acessar com Snuggle" />
-  <meta property="og:image" content="https://SEU-USUARIO.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
-  <meta property="og:url" content="https://SEU-USUARIO.github.io/snuggle-web/add.html" />
+  <meta property="og:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
+  <meta property="og:url" content="https://brunomecatronica.github.io/snuggle-web/add.html" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
   <script>
@@ -19,8 +23,9 @@
     const deepLink = `snuggle://add?name=${name}&phone=${phone}&date=${date}`;
     window.location.href = deepLink;
 
+    // Se o app não estiver instalado, redireciona para sua página no GitHub como fallback
     setTimeout(() => {
-      window.location.href = 'https://play.google.com/store/apps/details?id=com.seu.dominio.snuggle_app';
+      window.location.href = 'https://github.com/brunomecatronica/snuggle-web';
     }, 500);
   </script>
 </body>
