@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Snuggle</title>
+  <meta property="og:title" content="Snuggle" />
+  <meta property="og:description" content="🎉 Clique para acessar com Snuggle" />
+  <meta property="og:image" content="https://SEU-USUARIO.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
+  <meta property="og:url" content="https://SEU-USUARIO.github.io/snuggle-web/add.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+</head>
+<body>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name  = params.get('name');
+    const phone = params.get('phone');
+    const date  = params.get('date');
+
+    const deepLink = `snuggle://add?name=${name}&phone=${phone}&date=${date}`;
+    window.location.href = deepLink;
+
+    setTimeout(() => {
+      window.location.href = 'https://play.google.com/store/apps/details?id=com.seu.dominio.snuggle_app';
+    }, 500);
+  </script>
+</body>
+</html>
