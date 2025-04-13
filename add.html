@@ -2,18 +2,65 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Snuggle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snuggle – Em breve na Play Store</title>
 
-  <!-- Meta tags para preview no WhatsApp e redes sociais -->
+  <!-- Meta tags para preview -->
   <meta property="og:title" content="Snuggle" />
   <meta property="og:description" content="🎉 Clique para acessar com Snuggle" />
   <meta property="og:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
   <meta property="og:url" content="https://brunomecatronica.github.io/snuggle-web/add.html" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #FF8A00;
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    img {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 18px;
+      max-width: 300px;
+      margin: 0 auto 30px;
+    }
+    button {
+      background-color: white;
+      color: #FF8A00;
+      font-weight: bold;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #ffe0c0;
+    }
+  </style>
 </head>
 <body>
+  <img src="assets/snuggle_icon_orange.png" alt="Logo Snuggle" />
+  <h1>Snuggle ainda não está disponível</h1>
+  <p>Estamos preparando tudo com carinho! Em breve o app estará na Play Store para você baixar e adicionar aniversariantes com 1 clique!</p>
+  <button onclick="history.back()">Voltar</button>
+
   <script>
     const params = new URLSearchParams(window.location.search);
     const name  = params.get('name');
@@ -23,9 +70,9 @@
     const deepLink = `snuggle://add?name=${name}&phone=${phone}&date=${date}`;
     window.location.href = deepLink;
 
-    // Se o app não estiver instalado, redireciona para sua página no GitHub como fallback
+    // Fallback para esta mesma página visual se app não estiver instalado
     setTimeout(() => {
-      window.location.href = 'https://github.com/brunomecatronica/snuggle-web';
+      // Faz nada, deixa o usuário ver a página visual
     }, 500);
   </script>
 </body>
