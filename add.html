@@ -1,79 +1,67 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snuggle – Em breve na Play Store</title>
-
-  <!-- Meta tags para preview -->
-  <meta property="og:title" content="Snuggle" />
-  <meta property="og:description" content="🎉 Clique para acessar com Snuggle" />
-  <meta property="og:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
-  <meta property="og:url" content="https://brunomecatronica.github.io/snuggle-web/add.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adicionar Aniversariante - Snuggle</title>
+  
+  <!-- Open Graph meta tags -->
+  <meta property="og:title" content="Adicionar Aniversariante - Snuggle" />
+  <meta property="og:description" content="Clique para adicionar este aniversariante ao seu app Snuggle ou baixe o app se ainda não estiver instalado." />
+  <meta property="og:image" content="https://seuusuario.github.io/snuggle-web/images/logo.png" />
+  <meta property="og:url" content="https://seuusuario.github.io/snuggle-web/add.html" />
+  
+  <!-- Meta tags para Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Adicionar Aniversariante - Snuggle" />
+  <meta name="twitter:description" content="Clique para adicionar este aniversariante ao seu app Snuggle ou baixe o app se ainda não estiver instalado." />
+  <meta name="twitter:image" content="https://seuusuario.github.io/snuggle-web/images/logo.png" />
+
+  <script>
+    // Ao carregar a página, tenta abrir o app via deep link.
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if(urlParams.has('name') && urlParams.has('phone') && urlParams.has('date')) {
+        // Monta o deep link para o app
+        const deepLink = "snuggle://add?" + window.location.search.substring(1);
+        // Tenta redirecionar
+        window.location = deepLink;
+        // Se não for redirecionado (por exemplo, o app não está instalado), após 1,5 segundos a página continuará a ser exibida.
+        setTimeout(function(){
+          document.getElementById("fallback").style.display = "block";
+        }, 1500);
+      }
+    };
+  </script>
 
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #FF8A00;
-      font-family: Arial, sans-serif;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      background-color: #FFF5E9;
+      font-family: sans-serif;
       text-align: center;
+      padding: 40px;
     }
-    img {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 20px;
+    #fallback {
+      display: none;
+      margin-top: 20px;
     }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-      max-width: 300px;
-      margin: 0 auto 30px;
-    }
-    button {
-      background-color: white;
-      color: #FF8A00;
-      font-weight: bold;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background-color: #ffe0c0;
+    .download-link {
+      color: #FFF;
+      background-color: #FF8A00;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-  <img src="assets/snuggle_icon_orange.png" alt="Logo Snuggle" />
-  <h1>Snuggle ainda não está disponível</h1>
-  <p>Estamos preparando tudo com carinho! Em breve o app estará na Play Store para você baixar e adicionar aniversariantes com 1 clique!</p>
-  <button onclick="history.back()">Voltar</button>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const name  = params.get('name');
-    const phone = params.get('phone');
-    const date  = params.get('date');
-
-    const deepLink = `snuggle://add?name=${name}&phone=${phone}&date=${date}`;
-    window.location.href = deepLink;
-
-    // Fallback para esta mesma página visual se app não estiver instalado
-    setTimeout(() => {
-      // Faz nada, deixa o usuário ver a página visual
-    }, 500);
-  </script>
+  <h1>Redirecionando...</h1>
+  <p>Se o app Snuggle estiver instalado, você será redirecionado automaticamente.</p>
+  
+  <!-- Fallback para quem não tem o app instalado -->
+  <div id="fallback">
+    <h2>Snuggle ainda não está disponível</h2>
+    <p>Você pode <a class="download-link" href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle" target="_blank">baixar o app</a> na Play Store.</p>
+  </div>
 </body>
 </html>
