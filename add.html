@@ -1,16 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
-  <title>Adicionar Aniversariante</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adicionar Aniversariante - Snuggle</title>
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Adicionar Aniversariante - Snuggle" />
+  <meta property="og:description" content="Clique para adicionar este aniversariante ou baixe o app se ainda não estiver instalado." />
+  <meta property="og:image" content="https://seuusuario.github.io/snuggle-web/images/logo.png" />
+  <meta property="og:url" content="https://seuusuario.github.io/snuggle-web/add.html" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Adicionar Aniversariante - Snuggle" />
+  <meta name="twitter:description" content="Clique para adicionar este aniversariante ou baixe o app se ainda não estiver instalado." />
+  <meta name="twitter:image" content="https://seuusuario.github.io/snuggle-web/images/logo.png" />
+
+  <script>
+    window.onload = function() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('name') && params.has('phone') && params.has('date')) {
+        // Monta o deep link para o app
+        const deepLink = "snuggle://add?" + window.location.search.substring(1);
+        // Tenta redirecionar
+        window.location = deepLink;
+        // Se após 1,5 segundos o redirecionamento não ocorrer, exibe o fallback
+        setTimeout(function(){
+          document.getElementById("fallback").style.display = "block";
+        }, 1500);
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #FFF5E9;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    #fallback {
+      display: none;
+      margin-top: 20px;
+    }
+    .download-link {
+      color: #FFF;
+      background-color: #FF8A00;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Abra no app Snuggle</h1>
-  <p>Se você já tem o Snuggle instalado, clique no botão abaixo:</p>
-  <a id="openAppButton"
-     href="snuggle://add?name=...&phone=...&date=..."
-     style="padding:10px; background:#FF8A00; color:#FFF; text-decoration:none;"
-     >Abrir no app</a>
-
-  <!-- Fallback: Se o usuário não tiver o app, ele ainda estará nesta página. -->
+  <h1>Redirecionando...</h1>
+  <p>Se o app Snuggle estiver instalado, você será redirecionado automaticamente.</p>
+  
+  <!-- Botão para abrir o app com interação do usuário (fallback para o deep link) -->
+  <div id="fallback">
+    <h2>Abrir no App</h2>
+    <a class="download-link" href="snuggle://add?<?=window.location.search?>" onclick="return true;">Abrir no app</a>
+    <p>Ou, se não estiver instalado, <a class="download-link" href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle" target="_blank">baixe o app</a>.</p>
+  </div>
 </body>
 </html>
