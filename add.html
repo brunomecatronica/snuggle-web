@@ -1,40 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adicionar Aniversariante</title>
-
-  <!-- Metatags do OpenGraph / Twitter Card se quiser preview -->
-  <meta property="og:title" content="Snuggle - Adicionar Aniversariante"/>
-  <meta property="og:description" content="Clique para adicionar este aniversariante ao Snuggle ou baixar o app."/>
-  <meta property="og:image" content="https://seu_dominio.github.io/snuggle-web/imagem.png"/>
-  <meta property="og:url" content="https://seu_dominio.github.io/snuggle-web/add.html"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adicionar Aniversariante - Snuggle</title>
+  
+  <!-- Open Graph meta tags -->
+  <meta property="og:title" content="Adicionar Aniversariante - Snuggle" />
+  <meta property="og:description" content="Clique para adicionar este aniversariante ao seu app Snuggle ou baixe o app se ainda não estiver instalado." />
+  <meta property="og:image" content="https://seuusuario.github.io/snuggle-web/images/logo.png" />
+  <meta property="og:url" content="https://seuusuario.github.io/snuggle-web/add.html" />
+  
+  <!-- Meta tags para Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Adicionar Aniversariante - Snuggle" />
+  <meta name="twitter:description" content="Clique para adicionar este aniversariante ao seu app Snuggle ou baixe o app se ainda não estiver instalado." />
+  <meta name="twitter:image" content="https://seuusuario.github.io/snuggle-web/images/logo.png" />
 
   <script>
+    // Ao carregar a página, tenta abrir o app via deep link.
     window.onload = function() {
-      const params = new URLSearchParams(window.location.search);
-      // Se a URL tiver name, phone, date, tentamos abrir o link deep:
-      if (params.has('name') && params.has('phone') && params.has('date')) {
-        const schemeUrl = "snuggle://add?" + window.location.search.substring(1);
-
-        // Tentativa de abrir o deep link
-        window.location.replace(schemeUrl);
-
-        // Se depois de um tempo ainda estivermos nessa página, significa que o deep link falhou,
-        // então permanece a tela fallback.
+      const urlParams = new URLSearchParams(window.location.search);
+      if(urlParams.has('name') && urlParams.has('phone') && urlParams.has('date')) {
+        // Monta o deep link para o app
+        const deepLink = "snuggle://add?" + window.location.search.substring(1);
+        // Tenta redirecionar
+        window.location = deepLink;
+        // Se não for redirecionado (por exemplo, o app não está instalado), após 1,5 segundos a página continuará a ser exibida.
         setTimeout(function(){
-          // Se ainda estiver na mesma página, mostra uma mensagem ou mantém a fallback
+          document.getElementById("fallback").style.display = "block";
         }, 1500);
       }
     };
   </script>
+
+  <style>
+    body {
+      background-color: #FFF5E9;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    #fallback {
+      display: none;
+      margin-top: 20px;
+    }
+    .download-link {
+      color: #FFF;
+      background-color: #FF8A00;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
 </head>
-<body style="background-color: #FFA347; margin: 0; padding: 0;">
-  <div style="text-align:center; padding: 40px;">
-    <h1>Snuggle ainda não está disponível...</h1>
-    <p>Estamos preparando tudo com carinho! Em breve o app estará na Play Store para você baixar & adicionar aniversariantes.</p>
-    <button onclick="history.back()">Voltar</button>
+<body>
+  <h1>Redirecionando...</h1>
+  <p>Se o app Snuggle estiver instalado, você será redirecionado automaticamente.</p>
+  
+  <!-- Fallback para quem não tem o app instalado -->
+  <div id="fallback">
+    <h2>Snuggle ainda não está disponível</h2>
+    <p>Você pode <a class="download-link" href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle" target="_blank">baixar o app</a> na Play Store.</p>
   </div>
 </body>
 </html>
