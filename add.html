@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adicionar Aniversariante - Snuggle</title>
+  <!-- O título possui um id para facilitar a atualização dinâmica -->
+  <title id="dynamicTitle">Adicionar Aniversariante - Snuggle</title>
   
   <!-- Open Graph meta tags -->
   <meta property="og:title" content="Adicionar Aniversariante - Snuggle" />
@@ -17,17 +18,25 @@
   <meta name="twitter:description" content="Clique para adicionar este aniversariante ao seu app Snuggle ou baixe o app se ainda não estiver instalado." />
   <meta name="twitter:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
   
-
   <script>
     // Ao carregar a página, tenta abrir o app via deep link.
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
+      
+      // Se o parâmetro "name" estiver presente, atualiza o título da página.
+      if (urlParams.has('name')) {
+        const nome = decodeURIComponent(urlParams.get('name'));
+        const dynamicTitle = `Adicionar ${nome} ao Snuggle`;
+        document.title = dynamicTitle;
+        document.getElementById("dynamicTitle").textContent = dynamicTitle;
+      }
+      
       if(urlParams.has('name') && urlParams.has('phone') && urlParams.has('date')) {
-        // Monta o deep link para o app
+        // Monta o deep link para o app usando todos os parâmetros da URL
         const deepLink = "snuggle://add?" + window.location.search.substring(1);
-        // Tenta redirecionar
+        // Tenta redirecionar para o app
         window.location = deepLink;
-        // Se não for redirecionado (por exemplo, o app não está instalado), após 1,5 segundos a página continuará a ser exibida.
+        // Caso o app não seja redirecionado (ex.: não instalado), após 1,5 segundos exibe o fallback.
         setTimeout(function(){
           document.getElementById("fallback").style.display = "block";
         }, 1500);
@@ -59,7 +68,7 @@
   <h1>Redirecionando...</h1>
   <p>Se o app Snuggle estiver instalado, você será redirecionado automaticamente.</p>
   
-  <!-- Fallback para quem não tem o app instalado -->
+  <!-- Fallback para quando o app não estiver instalado -->
   <div id="fallback">
     <h2>Snuggle ainda não está disponível</h2>
     <p>Você pode <a class="download-link" href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle" target="_blank">baixar o app</a> na Play Store.</p>
