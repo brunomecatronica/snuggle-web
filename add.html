@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
@@ -52,13 +52,9 @@
       display: none;
       margin-top: 20px;
     }
-    .download-link {
-      color: #FFFFFF;
-      background-color: #FBEBB7;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: 500;
+    .download-link img {
+      width: 250px;
+      height: auto;
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -70,7 +66,9 @@
 
   <div id="fallback">
     <h2>Snuggle ainda não está disponível</h2>
-    <p>Você pode <a class="download-link" href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle" target="_blank">baixar o app</a> na Play Store.</p>
+    <a class="download-link" href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle" target="_blank">
+      <img src="assets/google_play.png" alt="Disponível no Google Play">
+    </a>
   </div>
 </body>
 </html>
