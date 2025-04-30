@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
@@ -17,51 +17,118 @@
   <meta name="twitter:description" content="Clique para adicionar este aniversariante ao seu app Snuggle ou baixe o app se ainda não estiver instalado." />
   <meta name="twitter:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
 
+  <style>
+    /* Layout base e responsivo */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 2rem;
+      background-color: #EE8027;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      color: #FFFFFF;
+    }
+    #logo {
+      width: 40vw;
+      max-width: 700px;
+      margin-bottom: 1rem;
+      height: auto;
+    }
+    h1 {
+      font-size: 1.75rem;
+      margin: 0.5rem 0;
+    }
+    p {
+      font-size: 1rem;
+      margin: 0.5rem 0 1.5rem;
+    }
+    #fallback {
+      display: none;
+      margin-top: 1.5rem;
+    }
+    .download-link img {
+      width: 50vw;
+      max-width: 250px;
+      height: auto;
+    }
+    /* Ajustes para telas pequenas */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      #logo {
+        width: 60vw;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 0.95rem;
+      }
+      .download-link img {
+        width: 70vw;
+      }
+    }
+    /* Ajustes para telas muito largas */
+    @media (min-width: 1024px) {
+      body {
+        max-width: 480px;
+        margin: auto;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+
   <script>
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
+
+      // Atualiza título dinâmico com o nome, se fornecido
       if (urlParams.has('name')) {
         const nome = decodeURIComponent(urlParams.get('name'));
         const dynamicTitle = `Adicionar ${nome} ao Snuggle`;
         document.title = dynamicTitle;
         document.getElementById("dynamicTitle").textContent = dynamicTitle;
       }
-      if(urlParams.has('name') && urlParams.has('phone') && urlParams.has('date')) {
-        const deepLink = "snuggle://add?" + window.location.search.substring(1);
-        window.location = deepLink;
-        setTimeout(function(){
-          document.getElementById("fallback").style.display = "block";
-        }, 1500);
+
+      // Suporta tanto 'tipo' (PT-BR) quanto 'type' (EN)
+      if (urlParams.has('tipo') && !urlParams.has('type')) {
+        urlParams.set('type', urlParams.get('tipo'));
       }
+
+      // Redireciona apenas se todos os parâmetros obrigatórios existirem
+      if (
+        urlParams.has('name') &&
+        urlParams.has('phone') &&
+        urlParams.has('date') &&
+        urlParams.has('type')
+      ) {
+        const deepLink = `snuggle://add?${urlParams.toString()}`;
+        window.location = deepLink;
+        return;
+      }
+
+      // Caso contrário, exibe fallback após 1.5s
+      setTimeout(function() {
+        document.getElementById("fallback").style.display = "block";
+      }, 1500);
     };
   </script>
 
-  <style>
-    body {
-      background-color: #EE8027;
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      padding: 40px;
-      color: #FFFFFF;
-    }
-    #logo {
-      width: 700px;
-      margin-bottom: 20px;
-    }
-    #fallback {
-      display: none;
-      margin-top: 20px;
-    }
-    .download-link img {
-      width: 250px;
-      height: auto;
-    }
-  </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <img id="logo" src="assets/snuggle_icon_orange.png" alt="Snuggle Logo">
-  <h1>Redirecionando...</h1>
+  <h1 id="dynamicTitle">Redirecionando...</h1>
   <p>Se o app Snuggle estiver instalado, você será redirecionado automaticamente.</p>
 
   <div id="fallback">
