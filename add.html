@@ -105,14 +105,6 @@
         urlParams.set('type', urlParams.get('tipo'));
       }
 
-      // Definir código e ISO padrão se não existirem
-      if (!urlParams.has('countryCode')) {
-        urlParams.set('countryCode', '55');
-      }
-      if (!urlParams.has('countryIso')) {
-        urlParams.set('countryIso', 'BR');
-      }
-
       // Redireciona apenas se todos os parâmetros obrigatórios existirem
       if (
         urlParams.has('name') &&
