@@ -105,6 +105,17 @@
         urlParams.set('type', urlParams.get('tipo'));
       }
 
+      // Processa o número de telefone para garantir o formato internacional
+      if (urlParams.has('phone')) {
+        const phone = urlParams.get('phone');
+        
+        // Se o número não começar com +, tenta adicionar o código padrão +55 (Brasil)
+        if (phone && !phone.startsWith('+')) {
+          // Apenas modifica se não for um número já com formato internacional
+          urlParams.set('phone', `+55${phone}`);
+        }
+      }
+
       // Redireciona apenas se todos os parâmetros obrigatórios existirem
       if (
         urlParams.has('name') &&
@@ -114,6 +125,16 @@
       ) {
         const deepLink = `snuggle://add?${urlParams.toString()}`;
         window.location = deepLink;
+        
+        // Exibe informações de debug no console (para desenvolvimento)
+        console.log("Redirecionando para:", deepLink);
+        console.log("Parâmetros enviados:", {
+          name: urlParams.get('name'),
+          phone: urlParams.get('phone'),
+          date: urlParams.get('date'),
+          type: urlParams.get('type')
+        });
+        
         return;
       }
 
