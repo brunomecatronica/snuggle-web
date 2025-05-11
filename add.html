@@ -105,14 +105,26 @@
         urlParams.set('type', urlParams.get('tipo'));
       }
 
-      // Processa o número de telefone para garantir o formato internacional
+      // Processa o número de telefone
       if (urlParams.has('phone')) {
         const phone = urlParams.get('phone');
         
-        // Se o número não começar com +, tenta adicionar o código padrão +55 (Brasil)
+        // Se o número não começar com +, verifica se tem um countryCode nos parâmetros
         if (phone && !phone.startsWith('+')) {
-          // Apenas modifica se não for um número já com formato internacional
-          urlParams.set('phone', `+55${phone}`);
+          let countryCode = '';
+          
+          // Procura por countryCode ou country_code nos parâmetros
+          if (urlParams.has('countryCode')) {
+            countryCode = urlParams.get('countryCode');
+          } else if (urlParams.has('country_code')) {
+            countryCode = urlParams.get('country_code');
+          } else {
+            // Se não encontrar, usa o código padrão do Brasil
+            countryCode = '55';
+          }
+          
+          // Adiciona o + e o código do país ao número
+          urlParams.set('phone', `+${countryCode}${phone}`);
         }
       }
 
@@ -132,7 +144,8 @@
           name: urlParams.get('name'),
           phone: urlParams.get('phone'),
           date: urlParams.get('date'),
-          type: urlParams.get('type')
+          type: urlParams.get('type'),
+          countryCode: urlParams.get('countryCode') || 'não fornecido'
         });
         
         return;
