@@ -5,141 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>添加生日 - Snuggle</title>
 
-  <!-- Meta tags simplificadas com combinação de chinês e inglês -->
-  <meta property="og:title" content="Add Birthday (Chinese) - Snuggle" />
-  <meta property="og:description" content="Click to add this birthday to your Snuggle app" />
+  <meta property="og:title" content="添加生日 - Snuggle" />
+  <meta property="og:description" content="点击将此生日添加到您的Snuggle应用程序，或者如果尚未安装，请下载该应用程序。" />
   <meta property="og:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
   <meta property="og:url" content="https://brunomecatronica.github.io/snuggle-web/add_zh.html" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Add Birthday (Chinese) - Snuggle" />
-  <meta name="twitter:description" content="Click to add this birthday to your Snuggle app" />
-  <meta name="twitter:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
-
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 2rem;
-      background-color: #EE8027;
-      font-family: 'Noto Sans SC', 'Poppins', sans-serif;
-      text-align: center;
-      color: #FFFFFF;
-    }
-    #logo {
-      width: 40vw;
-      max-width: 700px;
-      margin-bottom: 1rem;
-      height: auto;
-    }
-    h1 {
-      font-size: 1.75rem;
-      margin: 0.5rem 0;
-    }
-    p {
-      font-size: 1rem;
-      margin: 0.5rem 0 1.5rem;
-    }
-    #fallback {
-      display: none;
-      margin-top: 1.5rem;
-    }
-    .download-link img {
-      width: 50vw;
-      max-width: 250px;
-      height: auto;
-    }
-    @media (max-width: 600px) {
-      body {
-        padding: 1rem;
-      }
-      #logo {
-        width: 60vw;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
-      p {
-        font-size: 0.95rem;
-      }
-      .download-link img {
-        width: 70vw;
-      }
-    }
+    body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 2rem; background-color: #EE8027; font-family: 'Poppins', sans-serif; text-align: center; color: #FFFFFF; }
+    #logo { width: 40vw; max-width: 700px; margin-bottom: 1rem; height: auto; }
+    h1 { font-size: 1.75rem; margin: 0.5rem 0; }
+    p { font-size: 1rem; margin: 0.5rem 0 1.5rem; }
+    #fallback { display: none; margin-top: 1.5rem; }
+    .download-link img { width: 50vw; max-width: 250px; height: auto; }
   </style>
 
   <script>
-    window.onload = function() {
+    window.onload = function () {
       const urlParams = new URLSearchParams(window.location.search);
-      
-      // Suporte para 'tipo' e 'type'
       if (urlParams.has('tipo') && !urlParams.has('type')) {
         urlParams.set('type', urlParams.get('tipo'));
       }
-
-      // Processa o número de telefone
       if (urlParams.has('phone')) {
         const phone = urlParams.get('phone');
-        
         if (phone && !phone.startsWith('+')) {
-          let countryCode = '';
-          if (urlParams.has('countryCode')) {
-            countryCode = urlParams.get('countryCode');
-          } else if (urlParams.has('country_code')) {
-            countryCode = urlParams.get('country_code');
-          } else {
-            countryCode = '55';
-          }
-          
-          urlParams.set('phone', `+${countryCode}${phone}`);
+          let cc = urlParams.get('countryCode') || urlParams.get('country_code') || '55';
+          urlParams.set('phone', `+${cc}${phone}`);
         }
       }
-
-      // Garante que o parâmetro de idioma seja chinês
-      if (!urlParams.has('lang')) {
-        urlParams.set('lang', 'zh');
-      }
-
-      // Atualiza o título dinâmico com o nome, se fornecido
       if (urlParams.has('name')) {
         const name = decodeURIComponent(urlParams.get('name'));
         document.getElementById('dynamicTitle').textContent = `添加 ${name} 到 Snuggle`;
       }
-
-      // Redireciona para o app se todos os parâmetros necessários existirem
-      if (
-        urlParams.has('name') &&
-        urlParams.has('phone') &&
-        urlParams.has('date') &&
-        urlParams.has('type')
-      ) {
+      if (urlParams.has('name') && urlParams.has('phone') && urlParams.has('date') && urlParams.has('type')) {
         const deepLink = `snuggle://add?${urlParams.toString()}`;
-        window.location = deepLink;
-        
-        // Se o app não abrir, mostra o fallback após um tempo
-        setTimeout(function() {
-          document.getElementById("fallback").style.display = "block";
-        }, 2000);
-        
-        return;
+        window.location.href = deepLink;
+        setTimeout(() => { document.getElementById('fallback').style.display = 'block'; }, 2000);
       } else {
-        // Se faltarem parâmetros, mostra o fallback imediatamente
-        document.getElementById("fallback").style.display = "block";
+        document.getElementById('fallback').style.display = 'block';
       }
     };
   </script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <img id="logo" src="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" alt="Snuggle 标志" />
   <h1 id="dynamicTitle">添加生日到 Snuggle</h1>
   <p>此链接应该会打开 Snuggle 应用程序。如果没有打开，请从下方下载。</p>
-
   <div id="fallback">
     <p>看起来该应用程序尚未安装。立即下载：</p>
     <div class="download-link">
