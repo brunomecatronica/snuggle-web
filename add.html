@@ -3,22 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="dynamicTitle">Adicionar Aniversariante - Snuggle</title>
+  <title>Adicionar Aniversariante - Snuggle</title>
 
-  <!-- Open Graph meta tags - Serão atualizadas com base no idioma -->
-  <meta property="og:title" id="ogTitle" content="Adicionar Aniversariante - Snuggle" />
-  <meta property="og:description" id="ogDescription" content="Clique para adicionar este aniversariante ao seu app Snuggle ou baixe o app se ainda não estiver instalado." />
+  <meta property="og:title" content="Adicionar Aniversariante - Snuggle" />
+  <meta property="og:description" content="Clique para adicionar este aniversariante ao app Snuggle ou baixe o app se ainda não estiver instalado." />
   <meta property="og:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
-  <meta property="og:url" content="https://brunomecatronica.github.io/snuggle-web/add.html" />
+  <meta property="og:url" content="https://brunomecatronica.github.io/snuggle-web/add_pt.html" />
 
-  <!-- Meta tags para Twitter - Também serão atualizadas -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" id="twitterTitle" content="Adicionar Aniversariante - Snuggle" />
-  <meta name="twitter:description" id="twitterDescription" content="Clique para adicionar este aniversariante ao seu app Snuggle ou baixe o app se ainda não estiver instalado." />
+  <meta name="twitter:title" content="Adicionar Aniversariante - Snuggle" />
+  <meta name="twitter:description" content="Clique para adicionar este aniversariante ao app Snuggle ou baixe o app se ainda não estiver instalado." />
   <meta name="twitter:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
 
   <style>
-    /* Layout base e responsivo */
     body {
       display: flex;
       flex-direction: column;
@@ -55,191 +52,33 @@
       max-width: 250px;
       height: auto;
     }
-    /* Ajustes para telas pequenas */
-    @media (max-width: 600px) {
-      body {
-        padding: 1rem;
-      }
-      #logo {
-        width: 60vw;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
-      p {
-        font-size: 0.95rem;
-      }
-      .download-link img {
-        width: 70vw;
-      }
-    }
-    /* Ajustes para telas muito largas */
-    @media (min-width: 1024px) {
-      body {
-        max-width: 480px;
-        margin: auto;
-      }
-      h1 {
-        font-size: 2rem;
-      }
-      p {
-        font-size: 1.1rem;
-      }
-    }
   </style>
 
   <script>
-    // Textos e traduções para as meta tags e conteúdo da página
-    const translations = {
-      pt: {
-        title: "Adicionar Aniversariante - Snuggle",
-        description: "Clique para adicionar este aniversariante ao seu app Snuggle ou baixe o app se ainda não estiver instalado.",
-        redirecting: "Redirecionando...",
-        redirectDesc: "Se o app Snuggle estiver instalado, você será redirecionado automaticamente.",
-        notAvailable: "Snuggle ainda não está disponível",
-        comingSoon: "EM BREVE",
-        dynamicTitle: "Adicionar {name} ao Snuggle"
-      },
-      en: {
-        title: "Add Birthday - Snuggle",
-        description: "Click to add this birthday to your Snuggle app or download the app if it's not installed yet.",
-        redirecting: "Redirecting...",
-        redirectDesc: "If the Snuggle app is installed, you will be redirected automatically.",
-        notAvailable: "Snuggle is not available yet",
-        comingSoon: "COMING SOON",
-        dynamicTitle: "Add {name} to Snuggle"
-      },
-      es: {
-        title: "Añadir Cumpleaños - Snuggle",
-        description: "Haz clic para añadir este cumpleaños a tu app Snuggle o descarga la app si aún no está instalada.",
-        redirecting: "Redireccionando...",
-        redirectDesc: "Si la aplicación Snuggle está instalada, serás redirigido automáticamente.",
-        notAvailable: "Snuggle aún no está disponible",
-        comingSoon: "PRÓXIMAMENTE",
-        dynamicTitle: "Añadir {name} a Snuggle"
-      },
-      fr: {
-        title: "Ajouter Anniversaire - Snuggle",
-        description: "Cliquez pour ajouter cet anniversaire à votre application Snuggle ou téléchargez l'application si elle n'est pas encore installée.",
-        redirecting: "Redirection...",
-        redirectDesc: "Si l'application Snuggle est installée, vous serez redirigé automatiquement.",
-        notAvailable: "Snuggle n'est pas encore disponible",
-        comingSoon: "BIENTÔT DISPONIBLE",
-        dynamicTitle: "Ajouter {name} à Snuggle"
-      },
-      de: {
-        title: "Geburtstag hinzufügen - Snuggle",
-        description: "Klicken Sie, um diesen Geburtstag zu Ihrer Snuggle-App hinzuzufügen oder laden Sie die App herunter, falls sie noch nicht installiert ist.",
-        redirecting: "Weiterleitung...",
-        redirectDesc: "Wenn die Snuggle-App installiert ist, werden Sie automatisch weitergeleitet.",
-        notAvailable: "Snuggle ist noch nicht verfügbar",
-        comingSoon: "DEMNÄCHST",
-        dynamicTitle: "{name} zu Snuggle hinzufügen"
-      },
-      zh: {
-        title: "添加生日 - Snuggle",
-        description: "点击将此生日添加到您的Snuggle应用程序，或者如果尚未安装，请下载该应用程序。",
-        redirecting: "重定向中...",
-        redirectDesc: "如果安装了Snuggle应用程序，您将自动重定向。",
-        notAvailable: "Snuggle尚不可用",
-        comingSoon: "即将推出",
-        dynamicTitle: "将{name}添加到Snuggle"
-      },
-      hi: {
-        title: "जन्मदिन जोड़ें - Snuggle",
-        description: "इस जन्मदिन को अपने Snuggle ऐप में जोड़ने के लिए क्लिक करें या यदि यह अभी तक इंस्टॉल नहीं है तो ऐप डाउनलोड करें।",
-        redirecting: "पुनर्निर्देशित करना...",
-        redirectDesc: "यदि Snuggle ऐप इंस्टॉल है, तो आप स्वचालित रूप से पुनर्निर्देशित हो जाएंगे।",
-        notAvailable: "Snuggle अभी उपलब्ध नहीं है",
-        comingSoon: "जल्द आ रहा है",
-        dynamicTitle: "{name} को Snuggle में जोड़ें"
-      }
-    };
-
-    // Função para detectar o idioma (da URL ou navegador)
-    function detectLanguage() {
+    window.onload = function () {
       const urlParams = new URLSearchParams(window.location.search);
-      let lang = urlParams.get('lang'); // Tenta obter do parâmetro URL
-      
-      if (!lang || !translations[lang]) {
-        const browserLang = (navigator.language || navigator.userLanguage).split('-')[0];
-        lang = translations[browserLang] ? browserLang : 'pt';
-      }
-      
-      return lang;
-    }
 
-    // Função para atualizar os textos e meta tags com base no idioma
-    function updateTexts(lang, name) {
-      const texts = translations[lang] || translations.pt;
-      
-      // Atualiza o título da página
-      let pageTitle = texts.title;
-      if (name) {
-        pageTitle = texts.dynamicTitle.replace('{name}', name);
-      }
-      document.title = pageTitle;
-      
-      // Atualiza os elementos HTML
-      document.getElementById('dynamicTitle').textContent = name 
-        ? pageTitle 
-        : texts.redirecting;
-      document.getElementById('redirectDesc').textContent = texts.redirectDesc;
-      document.getElementById('notAvailable').textContent = texts.notAvailable;
-      document.getElementById('comingSoon').textContent = texts.comingSoon;
-      
-      // Atualiza as meta tags - Muito importante para o preview no WhatsApp
-      document.getElementById('ogTitle').setAttribute('content', pageTitle);
-      document.getElementById('ogDescription').setAttribute('content', texts.description);
-      
-      document.getElementById('twitterTitle').setAttribute('content', pageTitle);
-      document.getElementById('twitterDescription').setAttribute('content', texts.description);
-    }
-
-    window.onload = function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      
-      // Detecta o idioma e nome
-      const language = detectLanguage();
-      const nome = urlParams.has('name') ? decodeURIComponent(urlParams.get('name')) : '';
-      
-      // Atualiza os textos da página
-      updateTexts(language, nome);
-
-      // Suporta tanto 'tipo' (PT-BR) quanto 'type' (EN)
+      // Usar 'type' se 'tipo' estiver presente
       if (urlParams.has('tipo') && !urlParams.has('type')) {
         urlParams.set('type', urlParams.get('tipo'));
       }
 
-      // Processa o número de telefone
+      // Corrigir número
       if (urlParams.has('phone')) {
         const phone = urlParams.get('phone');
-        
-        // Se o número não começar com +, verifica se tem um countryCode nos parâmetros
         if (phone && !phone.startsWith('+')) {
-          let countryCode = '';
-          
-          // Procura por countryCode ou country_code nos parâmetros
-          if (urlParams.has('countryCode')) {
-            countryCode = urlParams.get('countryCode');
-          } else if (urlParams.has('country_code')) {
-            countryCode = urlParams.get('country_code');
-          } else {
-            // Se não encontrar, usa o código padrão do Brasil
-            countryCode = '55';
-          }
-          
-          // Adiciona o + e o código do país ao número
+          let countryCode = urlParams.get('countryCode') || urlParams.get('country_code') || '55';
           urlParams.set('phone', `+${countryCode}${phone}`);
         }
       }
 
-      // Adiciona o idioma detectado ao URL se não existir
-      if (!urlParams.has('lang')) {
-        urlParams.set('lang', language);
+      // Título dinâmico
+      if (urlParams.has('name')) {
+        const name = decodeURIComponent(urlParams.get('name'));
+        document.getElementById('dynamicTitle').textContent = `Adicionar ${name} ao Snuggle`;
       }
 
-      // Redireciona apenas se todos os parâmetros obrigatórios existirem
+      // Redirecionamento
       if (
         urlParams.has('name') &&
         urlParams.has('phone') &&
@@ -247,42 +86,29 @@
         urlParams.has('type')
       ) {
         const deepLink = `snuggle://add?${urlParams.toString()}`;
-        window.location = deepLink;
-        
-        // Exibe informações de debug no console (para desenvolvimento)
-        console.log("Redirecionando para:", deepLink);
-        console.log("Parâmetros enviados:", {
-          name: urlParams.get('name'),
-          phone: urlParams.get('phone'),
-          date: urlParams.get('date'),
-          type: urlParams.get('type'),
-          countryCode: urlParams.get('countryCode') || 'não fornecido',
-          lang: urlParams.get('lang')
-        });
-        
-        return;
-      }
+        window.location.href = deepLink;
 
-      // Caso contrário, exibe fallback após 1.5s
-      setTimeout(function() {
-        document.getElementById("fallback").style.display = "block";
-      }, 1500);
+        setTimeout(() => {
+          document.getElementById('fallback').style.display = 'block';
+        }, 2000);
+      } else {
+        document.getElementById('fallback').style.display = 'block';
+      }
     };
   </script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <img id="logo" src="assets/snuggle_icon_orange.png" alt="Snuggle Logo">
-  <h1 id="dynamicTitle">Redirecionando...</h1>
-  <p id="redirectDesc">Se o app Snuggle estiver instalado, você será redirecionado automaticamente.</p>
+  <img id="logo" src="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" alt="Logo Snuggle" />
+  <h1 id="dynamicTitle">Adicionar Aniversariante ao Snuggle</h1>
+  <p>Ao clicar no link, o app Snuggle será aberto. Caso não aconteça, baixe-o abaixo:</p>
 
   <div id="fallback">
-    <h2 id="notAvailable">Snuggle ainda não está disponível</h2>
-    <h2 id="comingSoon">EM BREVE</h2>
-    <a class="download-link" href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle" target="_blank">
-      <img src="assets/google_play.png" alt="Disponível no Google Play">
-    </a>
+    <p>Parece que o app não está instalado. Baixe para começar:</p>
+    <div class="download-link">
+      <a href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Baixar na Google Play" />
+      </a>
+    </div>
   </div>
 </body>
 </html>
