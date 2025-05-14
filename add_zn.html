@@ -10,17 +10,14 @@
   <meta property="og:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
   <meta property="og:url" content="https://brunomecatronica.github.io/snuggle-web/add_zh.html" />
 
-  <style>
-    body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 2rem; background-color: #EE8027; font-family: 'Poppins', sans-serif; text-align: center; color: #FFFFFF; }
+  <style>body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 2rem; background-color: #EE8027; font-family: 'Poppins', sans-serif; text-align: center; color: #FFFFFF; }
     #logo { width: 40vw; max-width: 700px; margin-bottom: 1rem; height: auto; }
     h1 { font-size: 1.75rem; margin: 0.5rem 0; }
     p { font-size: 1rem; margin: 0.5rem 0 1.5rem; }
     #fallback { display: none; margin-top: 1.5rem; }
-    .download-link img { width: 50vw; max-width: 250px; height: auto; }
-  </style>
+    .download-link img { width: 50vw; max-width: 250px; height: auto; }</style>
 
-  <script>
-    window.onload = function () {
+  <script>window.onload = function () {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('tipo') && !urlParams.has('type')) {
         urlParams.set('type', urlParams.get('tipo'));
@@ -31,6 +28,9 @@
           let cc = urlParams.get('countryCode') || urlParams.get('country_code') || '55';
           urlParams.set('phone', `+${cc}${phone}`);
         }
+      }
+      if (!urlParams.has('lang')) {
+        urlParams.set('lang', 'zh');
       }
       if (urlParams.has('name')) {
         const name = decodeURIComponent(urlParams.get('name'));
@@ -43,8 +43,7 @@
       } else {
         document.getElementById('fallback').style.display = 'block';
       }
-    };
-  </script>
+    };</script>
 </head>
 <body>
   <img id="logo" src="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" alt="Snuggle 标志" />
