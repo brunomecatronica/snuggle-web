@@ -5,11 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>添加生日 - Snuggle</title>
 
-<meta property="og:title" content="添加生日 - Snuggle" />
-<meta property="og:description" content="点击将这个生日添加到您的Snuggle应用程序，或者如果尚未安装该应用程序，请下载它。" />
-<meta property="og:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
-<meta property="og:url" content="https://brunomecatronica.github.io/snuggle-web/add_zh.html" />
+  <!-- Meta tags simplificadas com combinação de chinês e inglês -->
+  <meta property="og:title" content="Add Birthday (Chinese) - Snuggle" />
+  <meta property="og:description" content="Click to add this birthday to your Snuggle app" />
+  <meta property="og:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
+  <meta property="og:url" content="https://brunomecatronica.github.io/snuggle-web/add_zh.html" />
 
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Add Birthday (Chinese) - Snuggle" />
+  <meta name="twitter:description" content="Click to add this birthday to your Snuggle app" />
+  <meta name="twitter:image" content="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" />
 
   <style>
     body {
@@ -21,7 +26,7 @@
       margin: 0;
       padding: 2rem;
       background-color: #EE8027;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Noto Sans SC', 'Poppins', sans-serif;
       text-align: center;
       color: #FFFFFF;
     }
@@ -65,42 +70,23 @@
         width: 70vw;
       }
     }
-    @media (min-width: 1024px) {
-      body {
-        max-width: 480px;
-        margin: auto;
-      }
-      h1 {
-        font-size: 2rem;
-      }
-      p {
-        font-size: 1.1rem;
-      }
-    }
   </style>
 
   <script>
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
       
-      // Get name parameter for dynamic title if available
-      if (urlParams.has('name')) {
-        const nome = decodeURIComponent(urlParams.get('name'));
-        document.getElementById('dynamicTitle').textContent = `将 ${nome} 添加到 Snuggle`;
-      }
-
-      // Support both 'tipo' and 'type'
+      // Suporte para 'tipo' e 'type'
       if (urlParams.has('tipo') && !urlParams.has('type')) {
         urlParams.set('type', urlParams.get('tipo'));
       }
 
-      // Process phone number
+      // Processa o número de telefone
       if (urlParams.has('phone')) {
         const phone = urlParams.get('phone');
         
         if (phone && !phone.startsWith('+')) {
           let countryCode = '';
-          
           if (urlParams.has('countryCode')) {
             countryCode = urlParams.get('countryCode');
           } else if (urlParams.has('country_code')) {
@@ -113,12 +99,18 @@
         }
       }
 
-      // Make sure lang parameter is set to Chinese
+      // Garante que o parâmetro de idioma seja chinês
       if (!urlParams.has('lang')) {
         urlParams.set('lang', 'zh');
       }
 
-      // Redirect to app if all required parameters exist
+      // Atualiza o título dinâmico com o nome, se fornecido
+      if (urlParams.has('name')) {
+        const name = decodeURIComponent(urlParams.get('name'));
+        document.getElementById('dynamicTitle').textContent = `添加 ${name} 到 Snuggle`;
+      }
+
+      // Redireciona para o app se todos os parâmetros necessários existirem
       if (
         urlParams.has('name') &&
         urlParams.has('phone') &&
@@ -128,39 +120,33 @@
         const deepLink = `snuggle://add?${urlParams.toString()}`;
         window.location = deepLink;
         
-        console.log("Redirecting to:", deepLink);
-        console.log("Parameters sent:", {
-          name: urlParams.get('name'),
-          phone: urlParams.get('phone'),
-          date: urlParams.get('date'),
-          type: urlParams.get('type'),
-          countryCode: urlParams.get('countryCode') || 'not provided',
-          lang: urlParams.get('lang')
-        });
+        // Se o app não abrir, mostra o fallback após um tempo
+        setTimeout(function() {
+          document.getElementById("fallback").style.display = "block";
+        }, 2000);
         
         return;
-      }
-
-      // Show fallback after 1.5s if no redirect happens
-      setTimeout(function() {
+      } else {
+        // Se faltarem parâmetros, mostra o fallback imediatamente
         document.getElementById("fallback").style.display = "block";
-      }, 1500);
+      }
     };
   </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <img id="logo" src="assets/snuggle_icon_orange.png" alt="Snuggle Logo">
-  <h1 id="dynamicTitle">正在重定向...</h1>
-  <p id="redirectDesc">如果已安装 Snuggle 应用程序，您将自动重定向。</p>
+  <img id="logo" src="https://brunomecatronica.github.io/snuggle-web/assets/snuggle_icon_orange.png" alt="Snuggle 标志" />
+  <h1 id="dynamicTitle">添加生日到 Snuggle</h1>
+  <p>此链接应该会打开 Snuggle 应用程序。如果没有打开，请从下方下载。</p>
 
   <div id="fallback">
-    <h2 id="notAvailable">Snuggle 尚不可用</h2>
-    <h2 id="comingSoon">即将推出</h2>
-    <a class="download-link" href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle" target="_blank">
-      <img src="assets/google_play.png" alt="在 Google Play 上获取">
-    </a>
+    <p>看起来该应用程序尚未安装。立即下载：</p>
+    <div class="download-link">
+      <a href="https://play.google.com/store/apps/details?id=com.seuapp.snuggle">
+        <img src="https://brunomecatronica.github.io/snuggle-web/assets/google_play_badge.png" alt="从 Google Play 下载" />
+      </a>
+    </div>
   </div>
 </body>
 </html>
